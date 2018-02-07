@@ -1,0 +1,110 @@
+{
+	":contextual-move-down-lcSequenceOption2": {
+		"label": "t__Move down",
+		"description": "t__Switch this answer option with the answer option below",
+		"icon": "arrow-down",
+		"keyBinding": "alt+shift+down",
+		"osxKeyBinding": "ctrl+shift+down",
+		"keyBindingDisabled": true,
+		"steps": {
+			"type": "operation/swap-with-next-element"
+		}
+	},
+	":contextual-move-up-lcSequenceOption2": {
+		"label": "t__Move up",
+		"description": "t__Switch this answer option with the answer option above",
+		"icon": "arrow-up",
+		"keyBinding": "alt+shift+up",
+		"osxKeyBinding": "ctrl+shift+up",
+		"keyBindingDisabled": true,
+		"steps": {
+			"type": "operation/swap-with-previous-element"
+		}
+	},
+	":insert-lcSequenceOption2": {
+		"label": "t__Answer option",
+		"description": "t__Provides the content and feedback for a sequence option.",
+		"steps": [
+			{
+				"type": "transform/setContextNodeIdToSelectionAncestor",
+				"data": {
+					"selectionAncestorNodeSpec": "self::lcSequencing2"
+				}
+			},
+			{
+				"type": "transform/setSequenceValue",
+				"data": {
+					"contextNodeId": "x__$data('contextNode')/child::lcSequenceOptionGroup2",
+					"sequenceValueXPathQuery": "./lcSequenceOption2/lcSequence2/@value"
+				}
+			},
+			{
+				"type": "operation/horizontal-insert",
+				"data": {
+					"childNodeStructure": [
+						"lcSequenceOption2",
+						["lcAnswerContent2",
+							[{ "bindTo": "selection", "empty": true }]
+						],
+						["lcSequence2",
+							{ "value": "{{value}}" }
+						]
+					]
+				}
+			}
+		]
+	},
+	":insert-lcSequencing2": {
+		"label": "t__Sequencing question",
+		"description": "t__A sequencing question asks the learner to arrange a list of choices into a predefined order, such as small to large.",
+		"initialData": {
+			"childNodeStructure": [
+				"lcSequencing2",
+				["lcQuestion2",
+					[{ "bindTo": "selection", "empty": true }]
+				],
+				["lcSequenceOptionGroup2",
+					["lcSequenceOption2",
+						["lcAnswerContent2"],
+						["lcSequence2",
+							{ "value": "1" }
+						]
+					],
+					["lcSequenceOption2",
+						["lcAnswerContent2"],
+						["lcSequence2",
+							{ "value": "2" }
+						]
+					]
+				]
+			],
+			"wrapChildNodeStructure": [
+				"lcSequencing2",
+				["lcQuestion2",
+					[{ "bindTo": "selection.start", "empty": true }],
+					[{ "bindTo": "transclude", "multiple": true, "required": false }],
+					[{ "bindTo": "selection.end", "empty": true }]
+				],
+				["lcSequenceOptionGroup2",
+					["lcSequenceOption2",
+						["lcAnswerContent2"],
+						["lcSequence2",
+							{ "value": "1" }
+						]
+					],
+					["lcSequenceOption2",
+						["lcAnswerContent2"],
+						["lcSequence2",
+							{ "value": "2" }
+						]
+					]
+				]
+			]
+		},
+		"alternatives": [
+			":_wrap-in-{question}",
+			":_append-{question}--in-lcInteraction",
+			":_merge-and-insert-{question}--in-lcInteraction"
+		]
+	}
+}
