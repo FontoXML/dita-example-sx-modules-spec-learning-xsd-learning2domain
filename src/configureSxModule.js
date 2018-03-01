@@ -128,6 +128,10 @@ define([
 			]
 		});
 
+		configureProperties(sxModule, 'self::lcFeedback2 or self::p[parent::lcFeedback2 and not(preceding-sibling::*)]', {
+			emptyElementPlaceholderText: t('type the feedback')
+		});
+
 		configureProperties(sxModule, 'self::lcFeedback2[preceding-sibling::lcCorrectResponse2]', {
 			blockBefore: [
 				createIconWidget('thumbs-up')
@@ -175,12 +179,23 @@ define([
 
 		// lcHotspot2
 		//     In a lcHotspot2 interaction, the learner clicks on a region of the screen to indicate a choice.
-		configureAsRemoved(sxModule, 'self::lcHotspot2');
+		configureAsFrame(sxModule, 'self::lcHotspot2', t('hot spot'), {
+			contextualOperations: [
+				{ name: ':contextual-delete-question' }
+			],
+			titleQuery: './lcInteractionLabel2',
+			blockHeaderLeft: [
+				createMarkupLabelWidget()
+			],
+			blockOutsideAfter: [
+				createElementMenuButtonWidget()
+			]
+		});
 
 		// lcHotspotMap2
 		//     A lcHotspotMap2 interaction lets you designate an action area or region over an image, allowing a
 		//     click in that region to get scored as correct or incorrect in respoinse to an interaction question.
-		configureAsRemoved(sxModule, 'self::lcHotspotMap2');
+		configureAsStructure(sxModule, 'self::lcHotspotMap2', t('mapping'));
 
 		// lcInstructornote2
 		//     Use the <lcInstructornote2> element to provide information or notes you want to provide to the
