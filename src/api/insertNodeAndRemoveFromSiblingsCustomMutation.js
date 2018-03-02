@@ -20,35 +20,31 @@ define([
 	 */
 	return function insertNodeAndRemoveFromSiblings (argument, blueprint) {
 		var contextNode = blueprint.lookup(argument.contextNodeId);
-
-		if (!contextNode ||!argument.nodeName || !blueprintQuery.isInDocument(blueprint, contextNode)) {
+		if (!contextNode || !argument.nodeName || !blueprintQuery.isInDocument(blueprint, contextNode)) {
 			return CustomMutationResult.notAllowed();
 		}
 
-		var documentNode = blueprintQuery.getDocumentNode(blueprint, contextNode),
-			newNode = documentNode.createElement(argument.nodeName),
-			referenceNode = argument.referenceNodeQuery ?
+		var documentNode = blueprintQuery.getDocumentNode(blueprint, contextNode);
+		var newNode = documentNode.createElement(argument.nodeName);
+		var referenceNode = argument.referenceNodeQuery ?
 				evaluateXPathToFirstNode(argument.referenceNodeQuery, contextNode, blueprint) :
 				null;
 
 		blueprint.insertBefore(contextNode, newNode, referenceNode);
 
-		var siblingNodes = evaluateXPathToNodes('preceding-sibling::*', contextNode, blueprint);
-		siblingNodes = siblingNodes.concat(
-				evaluateXPathToNodes('following-sibling::*', contextNode, blueprint)
-			);
+		evaluateXPathToNodes('preceding-sibling::*', contextNode, blueprint)
+			.concat(evaluateXPathToNodes('following-sibling::*', contextNode, blueprint))
+			.forEach(function (siblingNode) {
+				var removeNode = evaluateXPathToFirstNode(
+						'child::' + argument.nodeName,
+						siblingNode,
+						blueprint
+					);
 
-		siblingNodes.forEach(function (siblingNode) {
-			var removeNode = evaluateXPathToFirstNode(
-					'child::' + argument.nodeName,
-					siblingNode,
-					blueprint
-				);
-
-			if (removeNode) {
-				blueprint.removeChild(siblingNode, removeNode);
-			}
-		});
+				if (removeNode) {
+					blueprint.removeChild(siblingNode, removeNode);
+				}
+			});
 
 		return CustomMutationResult.ok();
 	};

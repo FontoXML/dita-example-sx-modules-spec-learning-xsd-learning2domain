@@ -281,5 +281,12 @@
 				}
 			}
 		]
+	},
+	":contextual-delete-lcArea2": {
+		"label": "t__Remove area",
+		"icon": "times",
+		"steps": {
+			"type": "operation/delete-node"
+		}
 	}
 }

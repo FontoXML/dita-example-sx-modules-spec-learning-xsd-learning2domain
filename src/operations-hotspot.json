@@ -1,0 +1,123 @@
+{
+	":_open-shape-editor-modal-for-edit--lcHotspot2": {
+		"steps": [
+			{
+				"type": "operation/:_open-shape-editor-modal-for-edit",
+				"data": {
+					"queryImageAssetId": "./ancestor-or-self::lcHotspotMap2/image/@href",
+					"queryAreaNodes": "./ancestor-or-self::lcHotspotMap2/lcArea2",
+					"queryAreaShapeFromArea": "./lcAreaShape2",
+					"queryAreaCoordsFromArea": "./lcAreaCoords2"
+				}
+			}
+		]
+	},
+	":_open-shape-editor-modal-for-insert--lcHotspot2": {
+		"steps": [
+			{
+				"type": "operation/:_open-shape-editor-modal-for-insert",
+				"data": {
+					"queryImageAssetId": "./ancestor-or-self::lcHotspotMap2/image/@href",
+					"queryAreaNodes": "./ancestor-or-self::lcHotspotMap2/lcArea2",
+					"queryAreaShapeFromArea": "./lcAreaShape2",
+					"queryAreaCoordsFromArea": "./lcAreaCoords2"
+				}
+			}
+		]
+	},
+	":lcArea2-edit": {
+		"label": "Edit area",
+		"getStateSteps": [],
+		"steps": [
+			{ "type": "operation/:_open-shape-editor-modal-for-edit--lcHotspot2" },
+			{
+				"type": "custom-mutation/replace-nodes-with-mapped-structure",
+				"data": {
+					"contextNodeId": "{{shapeNodeId}}",
+					"queryToReplacementStructureMapping": {
+						"./lcAreaShape2": ["lcAreaShape2", "{{areaShape}}"],
+						"./lcAreaCoords2": ["lcAreaCoords2", "{{areaCoords}}"]
+					}
+				}
+			}
+		]
+	},
+	":insert-lcArea2": {
+		"label": "Area",
+		"steps": [
+			{
+				"type": "transform/setContextNodeIdToSelectionAncestor",
+				"data": {
+					"selectionAncestorNodeSpec": "self::lcHotspot2"
+				}
+			},
+			{
+				"type": "operation/:lcHotspot2-add-lcArea2"
+			}
+		]
+	},
+	":lcHotspot2-add-lcArea2": {
+		"label": "Add area",
+		"getStateSteps": [
+			{
+				"type": "transform/setContextNodeIdToFirstMatchingNodeFromContextNode",
+				"data": {
+					"xPathQuery": "./lcHotspotMap2"
+				}
+			},
+			{
+				"type": "operation/append-structure",
+				"data": {
+					"childNodeStructure": [
+						"lcArea2",
+						["lcAreaShape2", "TEST"],
+						["lcAreaCoords2", "TEST"]
+					]
+				}
+			}
+		],
+		"steps": [
+			{
+				"type": "transform/setContextNodeIdToFirstMatchingNodeFromContextNode",
+				"data": {
+					"xPathQuery": "./lcHotspotMap2"
+				}
+			},
+			{
+				"type": "operation/:_open-shape-editor-modal-for-insert--lcHotspot2",
+				"data": {
+					"newShape": true
+				}
+			},
+			{
+				"type": "operation/append-structure",
+				"data": {
+					"childNodeStructure": [
+						"lcArea2",
+						["lcAreaShape2", "{{areaShape}}"],
+						["lcAreaCoords2", "{{areaCoords}}"],
+						["lcFeedback2", [{ "bindTo": "selection", "empty": true }]]
+					]
+				}
+			}
+		]
+	},
+	":lcArea2-insert-lcFeedback2": {
+		"label": "t__Add feedback",
+		"description": "t__Provides feedback for the area",
+		"initialData": {
+			"nodeName": "lcFeedback2"
+		},
+		"steps": [
+			{
+				"type": "operation/horizontal-insert",
+				"data": {
+					"childNodeStructure": [
+						"lcFeedback2",
+						[{ "bindTo": "selection", "empty": true }]
+					]
+				}
+			}
+		]
+	}
+}

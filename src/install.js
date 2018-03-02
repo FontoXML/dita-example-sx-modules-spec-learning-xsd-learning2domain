@@ -5,7 +5,8 @@ define([
 	'fontoxml-operations/addTransform',
 	'fontoxml-selectors/evaluateXPathToStrings',
 
-	'./api/insertNodeAndRemoveFromSiblings'
+	'./api/insertNodeAndRemoveFromSiblingsCustomMutation',
+	'./api/replaceNodesWithMappedStructureCustomMutation'
 ], function (
 	addCustomMutation,
 	readOnlyBlueprint,
@@ -13,12 +14,14 @@ define([
 	addTransform,
 	evaluateXPathToStrings,
 
-	insertNodeAndRemoveFromSiblings
+	insertNodeAndRemoveFromSiblings,
+	replaceNodesWithMappedStructure
 	) {
 	'use strict';
 
 	return function install () {
 		addCustomMutation('insert-node-and-remove-from-siblings', insertNodeAndRemoveFromSiblings);
+		addCustomMutation('replace-nodes-with-mapped-structure', replaceNodesWithMappedStructure);
 
 		addTransform(
 			'setSequenceValue',

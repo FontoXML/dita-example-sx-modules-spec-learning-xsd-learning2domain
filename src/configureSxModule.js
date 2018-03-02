@@ -99,7 +99,24 @@ define([
 		// lcArea2
 		//     A lcArea2 defines an area of a hotspot image that contains a correct or incorrect choice in a
 		//     hotspot assessment interaction.
-		configureAsRemoved(sxModule, 'self::lcArea2');
+		//
+		// This configuration is intentionally neutral, lcArea will be further configured (for occurrences in different
+		// interaction types) in the dita-example-sx-adapter-fontoshop package.
+		configureAsFrame(sxModule, 'self::lcArea2', t('area answer option'), {
+			defaultTextContainer: 'lcFeedback2',
+			contextualOperations: [
+				{ name: ':lcArea2-edit' },
+				{ name: ':lcArea2-insert-lcFeedback2' },
+				{ name: ':contextual-delete-lcArea2' }
+			],
+			blockHeaderLeft: [
+				createMarkupLabelWidget()
+			],
+			blockOutsideBefore: [
+				// By leaving this empty, the same amount of space is reserved that (for other lcAreas) might contain
+				// an icon widget.
+			]
+		});
 
 		// lcAreaCoords2
 		configureAsRemoved(sxModule, 'self::lcAreaCoords2');
@@ -181,6 +198,7 @@ define([
 		//     In a lcHotspot2 interaction, the learner clicks on a region of the screen to indicate a choice.
 		configureAsFrame(sxModule, 'self::lcHotspot2', t('hot spot'), {
 			contextualOperations: [
+				{ name: ':lcHotspot2-add-lcArea2' },
 				{ name: ':contextual-delete-question' }
 			],
 			titleQuery: './lcInteractionLabel2',
