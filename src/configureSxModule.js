@@ -102,7 +102,7 @@ define([
 		//
 		// This configuration is intentionally neutral, lcArea will be further configured (for occurrences in different
 		// interaction types) in the dita-example-sx-adapter-fontoshop package.
-		configureAsFrame(sxModule, 'self::lcArea2', t('area answer option'), {
+		configureAsFrame(sxModule, 'self::lcArea2', t('area'), {
 			defaultTextContainer: 'lcFeedback2',
 			contextualOperations: [
 				{ name: ':lcArea2-edit' },
