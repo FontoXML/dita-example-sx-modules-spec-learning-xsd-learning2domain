@@ -1,4 +1,66 @@
 {
+	":insert-lcHotspot2": {
+		"label": "t__Hotspot question",
+		"description": "t__A visual interaction where the student finds the right area in an image.",
+		"getStateSteps": [],
+		"steps": [
+			{
+				"type": "operation/:_open-image-browser-for-insert"
+			},
+			{
+				"type": "operation/:_insert-lcHotspot2",
+				"data": {
+					"childNodeStructure": [
+						"lcHotspot2",
+						["lcQuestion2",
+							[{ "bindTo": "selection", "empty": true }]
+						],
+						[
+							"lcHotspotMap2",
+							[
+								"image",
+								{ "href": "{{reference}}" }
+							],
+							[
+								"lcArea2",
+								["lcAreaShape2", "rect"],
+								["lcAreaCoords2", "25%,25%,75%,75%"],
+								["lcCorrectResponse2"]
+							]
+						]
+					],
+					"wrapChildNodeStructure": [
+						"lcHotspot2",
+						["lcQuestion2",
+							[{ "bindTo": "selection.start", "empty": true }],
+							[{ "bindTo": "transclude", "multiple": true, "required": false }],
+							[{ "bindTo": "selection.end", "empty": true }]
+						],
+						[
+							"lcHotspotMap2",
+							[
+								"image",
+								{ "href": "{{reference}}" }
+							],
+							[
+								"lcArea2",
+								["lcAreaShape2", "rect"],
+								["lcAreaCoords2", "25%,25%,75%,75%"],
+								["lcCorrectResponse2"]
+							]
+						]
+					]
+				}
+			}
+		]
+	},
+	":_insert-lcHotspot2": {
+		"alternatives": [
+			":_wrap-in-{question}",
+			":_append-{question}--in-lcInteraction",
+			":_merge-and-insert-{question}--in-lcInteraction"
+		]
+	},
 	":_open-shape-editor-modal-for-edit--lcHotspot2": {
 		"steps": [
 			{
