@@ -44,7 +44,8 @@
 		"alternatives": [
 			":_wrap-in-{question}",
 			":_append-{question}--in-lcInteraction",
-			":_merge-and-insert-{question}--in-lcInteraction"
+			":_merge-and-insert-{question}--in-lcInteraction",
+			":_vertical-insert-{question}"
 		]
 	}
 }

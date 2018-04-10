@@ -314,6 +314,28 @@
 			}
 		]
 	},
+	":_vertical-insert-{question}":{
+		"steps": [
+			{
+				"type": "transform/setContextNodeIdToSelectionAncestor",
+				"data": {
+					"selectionAncestorNodeSpec": "self::*[fonto:dita-class(., 'learningInteractionBase2-d/lcInteractionBase2')]"
+				}
+			},
+			{
+				"type": "transform/disableOperationIfContextNode",
+				"data": {
+					"contextNodeId": "{{contextNodeId}}"
+				}
+			},
+			{
+				"type": "operation/vertical-insert",
+				"data": {
+					"childNodeStructure": "{{childNodeStructure}}"
+				}
+			}
+		]
+	},
 	":contextual-delete-lcArea2": {
 		"label": "t__Remove area",
 		"icon": "times",

@@ -50,5 +50,21 @@ define([
 				return stepData;
 			}
 		);
+
+		addTransform(
+			'disableOperationIfContextNode',
+			function (stepData) {
+				return stepData;
+			},
+			function disableOperationIfContextNode (stepData) {
+				var contextNode = documentsManager.getNodeById(stepData.contextNodeId);
+				if (contextNode) {
+					stepData.operationState = {
+						enabled: false
+					};
+				}
+				return stepData;
+			}
+		);
 	};
 });
