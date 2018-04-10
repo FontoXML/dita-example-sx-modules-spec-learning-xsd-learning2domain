@@ -1,4 +1,36 @@
 {
+	":contextual-insert-lcAnswerOption2--above": {
+		"label": "t__Add answer option above",
+		"description": "t__Provides the content and feedback for a question option, and can indicate the correct option.",
+		"steps": {
+			"type": "operation/insert-next-to-context-node",
+			"data": {
+				"side": "before",
+				"childNodeStructure": [
+					"lcAnswerOption2",
+					["lcAnswerContent2",
+						[{ "bindTo": "selection", "empty": true }]
+					]
+				]
+			}
+		}
+	},
+	":contextual-insert-lcAnswerOption2--below": {
+		"label": "t__Add answer option below",
+		"description": "t__Provides the content and feedback for a question option, and can indicate the correct option.",
+		"steps": {
+			"type": "operation/insert-next-to-context-node",
+			"data": {
+				"side": "after",
+				"childNodeStructure": [
+					"lcAnswerOption2",
+					["lcAnswerContent2",
+						[{ "bindTo": "selection", "empty": true }]
+					]
+				]
+			}
+		}
+	},
 	":insert-image--in-lcAsset2": {
 		"label": "t__Image",
 		"description": "t__Add an image to this question",

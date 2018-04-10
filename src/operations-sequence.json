@@ -1,4 +1,58 @@
 {
+	":contextual-insert-lcSequenceOption2--above": {
+		"label": "t__Add answer option above",
+		"description": "t__Provides the content and feedback for a sequence option.",
+		"steps": [
+			{
+				"type": "transform/setSequenceValue",
+				"data": {
+					"sequenceValueXPathQuery": "parent::lcSequenceOptionGroup2/lcSequenceOption2/lcSequence2/@value"
+				}
+			},
+			{
+				"type": "operation/insert-next-to-context-node",
+				"data": {
+					"side": "before",
+					"childNodeStructure": [
+						"lcSequenceOption2",
+						["lcAnswerContent2",
+							[{ "bindTo": "selection", "empty": true }]
+						],
+						["lcSequence2",
+							{ "value": "{{value}}" }
+						]
+					]
+				}
+			}
+		]
+	},
+	":contextual-insert-lcSequenceOption2--below": {
+		"label": "t__Add answer option below",
+		"description": "t__Provides the content and feedback for a sequence option.",
+		"steps": [
+			{
+				"type": "transform/setSequenceValue",
+				"data": {
+					"sequenceValueXPathQuery": "parent::lcSequenceOptionGroup2/lcSequenceOption2/lcSequence2/@value"
+				}
+			},
+			{
+				"type": "operation/insert-next-to-context-node",
+				"data": {
+					"side": "after",
+					"childNodeStructure": [
+						"lcSequenceOption2",
+						["lcAnswerContent2",
+							[{ "bindTo": "selection", "empty": true }]
+						],
+						["lcSequence2",
+							{ "value": "{{value}}" }
+						]
+					]
+				}
+			}
+		]
+	},
 	":contextual-move-down-lcSequenceOption2": {
 		"label": "t__Move down",
 		"description": "t__Switch this answer option with the answer option below",

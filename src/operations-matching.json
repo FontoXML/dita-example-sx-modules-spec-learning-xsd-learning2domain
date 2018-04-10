@@ -13,6 +13,40 @@
 			"type": "operation/delete-node"
 		}
 	},
+	":contextual-insert-lcMatchingPair2--above": {
+		"label": "t__Add matching pair above",
+		"description": "t__Provides a table row with the pair of items that comprise a correct match in a matching interaction and, optionally, feedback on the pair or correct and incorrect matches.",
+		"steps": {
+			"type": "operation/insert-next-to-context-node",
+			"data": {
+				"side": "before",
+				"childNodeStructure": [
+					"lcMatchingPair2",
+					["lcItem2",
+						[{ "bindTo": "selection", "empty": true }]
+					],
+					["lcMatchingItem2"]
+				]
+			}
+		}
+	},
+	":contextual-insert-lcMatchingPair2--below": {
+		"label": "t__Add matching pair below",
+		"description": "t__Provides a table row with the pair of items that comprise a correct match in a matching interaction and, optionally, feedback on the pair or correct and incorrect matches.",
+		"steps": {
+			"type": "operation/insert-next-to-context-node",
+			"data": {
+				"side": "after",
+				"childNodeStructure": [
+					"lcMatchingPair2",
+					["lcItem2",
+						[{ "bindTo": "selection", "empty": true }]
+					],
+					["lcMatchingItem2"]
+				]
+			}
+		}
+	},
 	":insert-lcFeedback2--in-lcMatchingPair2": {
 		"label": "t__Neutral feedback",
 		"description": "t__Provides feedback for the matching pair",
@@ -173,37 +207,5 @@
 				}
 			}
 		]
-	},
-	":lcMatchTable2-append-lcMatchingPair2": {
-		"label": "t__Add matching pair",
-		"description": "t__Provides a table row with the pair of items that comprise a correct match in a matching interaction and, optionally, feedback on the pair or correct and incorrect matches.",
-		"steps": {
-			"type": "operation/append-structure",
-			"data": {
-				"childNodeStructure": [
-					"lcMatchingPair2",
-					["lcItem2",
-						[{ "bindTo": "selection", "empty": true }]
-					],
-					["lcMatchingItem2"]
-				]
-			}
-		}
-	},
-	":lcMatchTable2-insert-lcMatchingPair2": {
-		"label": "t__Add matching pair",
-		"description": "t__Provides a table row with the pair of items that comprise a correct match in a matching interaction and, optionally, feedback on the pair or correct and incorrect matches.",
-		"steps": {
-			"type": "operation/horizontal-insert",
-			"data": {
-				"childNodeStructure": [
-					"lcMatchingPair2",
-					["lcItem2",
-						[{ "bindTo": "selection", "empty": true }]
-					],
-					["lcMatchingItem2"]
-				]
-			}
-		}
 	}
 }

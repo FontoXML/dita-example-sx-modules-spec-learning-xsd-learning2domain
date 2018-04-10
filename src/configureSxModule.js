@@ -3,6 +3,7 @@ define([
 	'fontoxml-families/configureAsFrame',
 	'fontoxml-families/configureAsRemoved',
 	'fontoxml-families/configureAsStructure',
+	'fontoxml-families/configureContextualOperations',
 	'fontoxml-families/configureProperties',
 	'fontoxml-families/createElementMenuButtonWidget',
 	'fontoxml-families/createIconWidget',
@@ -14,6 +15,7 @@ define([
 	configureAsFrame,
 	configureAsRemoved,
 	configureAsStructure,
+	configureContextualOperations,
 	configureProperties,
 	createElementMenuButtonWidget,
 	createIconWidget,
@@ -60,6 +62,12 @@ define([
 			backgroundColor: 'red'
 		});
 
+		configureContextualOperations(sxModule, 'self::lcAnswerOption2[parent::*/parent::*[self::lcSingleSelect2]]', [
+			{ name: ':contextual-insert-lcAnswerOption2--above' },
+			{ name: ':contextual-insert-lcAnswerOption2--below' }
+		], 2);
+
+
 		configureProperties(sxModule, 'self::lcAnswerOption2[parent::*/parent::*[self::lcSingleSelect2 or self::lcTrueFalse2] and child::lcCorrectResponse2]', {
 			markupLabel: t('correct answer option'),
 			blockBefore: [
@@ -71,6 +79,10 @@ define([
 		});
 
 		configureProperties(sxModule, 'self::lcAnswerOption2[parent::*/parent::lcMultipleSelect2]', {
+			contextualOperations: [
+				{ name: ':contextual-insert-lcAnswerOption2--above' },
+				{ name: ':contextual-insert-lcAnswerOption2--below' }
+			],
 			markupLabel: t('incorrect answer option'),
 			blockBefore: [
 				createIconWidget('square-o', {
@@ -292,6 +304,8 @@ define([
 				{ query: './lcMatchingItemFeedback2', width: 2, hideColumnIfQueryIsTrue: 'parent::lcMatchTable2[not(child::lcMatchingPair2/lcMatchingItemFeedback2)]' }
 			],
 			contextualOperations: [
+				{ name: ':contextual-insert-lcMatchingPair2--above' },
+				{ name: ':contextual-insert-lcMatchingPair2--below' },
 				{ name: ':contextual-delete-lcMatchingPair2' }
 			],
 			borders: true
@@ -300,14 +314,7 @@ define([
 		// lcMatchTable2
 		//     The <lcMatchTable2> element in an assessment interaction provides a format for matching items.
 		configureAsStructure(sxModule, 'self::lcMatchTable2', t('match table'), {
-			contextualOperations: [
-				{ name: ':lcMatchTable2-append-lcMatchingPair2', hideIn: ['context-menu'] },
-				{ name: ':lcMatchTable2-insert-lcMatchingPair2', hideIn: ['element-menu', 'breadcrumbs-menu'] }
-			],
-			tabNavigationItemSelector: 'name() = ("lcItem2", "lcMatchingItem2", "lcMatchingItemFeedback2")',
-			blockOutsideAfter: [
-				createElementMenuButtonWidget()
-			]
+			tabNavigationItemSelector: 'name() = ("lcItem2", "lcMatchingItem2", "lcMatchingItemFeedback2")'
 		});
 
 		// lcMultipleSelect2
@@ -372,7 +379,9 @@ define([
 		configureAsFrame(sxModule, 'self::lcSequenceOption2', t('answer option'), {
 			contextualOperations: [
 				{ name: ':contextual-move-up-lcSequenceOption2' },
-				{ name: ':contextual-move-down-lcSequenceOption2' }
+				{ name: ':contextual-move-down-lcSequenceOption2' },
+				{ name: ':contextual-insert-lcSequenceOption2--above' },
+				{ name: ':contextual-insert-lcSequenceOption2--below' }
 			],
 			blockHeaderLeft: [
 				createMarkupLabelWidget()
