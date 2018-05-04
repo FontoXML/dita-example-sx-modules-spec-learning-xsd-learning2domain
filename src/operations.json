@@ -322,15 +322,11 @@
 	":_append-{question}--in-lcInteraction":{
 		"steps": [
 			{
-				"type": "transform/setContextNodeIdToSelectionAncestor",
-				"data": {
-					"selectionAncestorNodeSpec": "self::*[(self::section or self::lcSummary) and preceding-sibling::lcInteraction]"
-				}
+				"type": "transform/setContextNodeIdToPrecedinglcInteraction"
 			},
 			{
 				"type": "operation/append-structure",
 				"data": {
-					"contextNodeId": "x__$data('contextNode')/preceding-sibling::lcInteraction[1]",
 					"childNodeStructure": "{{childNodeStructure}}"
 				}
 			}

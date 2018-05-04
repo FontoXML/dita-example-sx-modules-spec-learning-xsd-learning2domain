@@ -2,7 +2,10 @@ define([
 	'fontoxml-base-flow/addCustomMutation',
 	'fontoxml-blueprints/readOnlyBlueprint',
 	'fontoxml-documents/documentsManager',
+	'fontoxml-dom-identification/getNodeId',
 	'fontoxml-operations/addTransform',
+	'fontoxml-selection/selectionManager',
+	'fontoxml-selectors/evaluateXPathToFirstNode',
 	'fontoxml-selectors/evaluateXPathToStrings',
 
 	'./api/insertNodeAndRemoveFromSiblingsCustomMutation',
@@ -11,7 +14,10 @@ define([
 	addCustomMutation,
 	readOnlyBlueprint,
 	documentsManager,
+	getNodeId,
 	addTransform,
+	selectionManager,
+	evaluateXPathToFirstNode,
 	evaluateXPathToStrings,
 
 	insertNodeAndRemoveFromSiblings,
@@ -63,6 +69,31 @@ define([
 						enabled: false
 					};
 				}
+				return stepData;
+			}
+		);
+
+		addTransform(
+			'setContextNodeIdToPrecedinglcInteraction',
+			function setContextNodeIdToPrecedinglcInteraction (stepData) {
+				var selectedElement = selectionManager.getSelectedElement();
+				if (!selectedElement) {
+					return stepData;
+				}
+
+				var lcInteractionNode;
+				var selectionAncestor = evaluateXPathToFirstNode('ancestor-or-self::*[self::section or self::lcSummary]', selectedElement, readOnlyBlueprint);
+				if (selectionAncestor) {
+					lcInteractionNode = evaluateXPathToFirstNode('preceding-sibling::lcInteraction[1]', selectionAncestor, readOnlyBlueprint);
+				}
+				else {
+					lcInteractionNode = evaluateXPathToFirstNode('self::learningAssessmentbody/child::lcInteraction[last()]', selectedElement, readOnlyBlueprint);
+				}
+
+				if (lcInteractionNode) {
+					stepData.contextNodeId = getNodeId(lcInteractionNode);
+				}
+
 				return stepData;
 			}
 		);
