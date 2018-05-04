@@ -1,4 +1,19 @@
 {
+
+	":contextual-delete-lcArea2": {
+		"label": "t__Remove area",
+		"icon": "times",
+		"steps": {
+			"type": "operation/delete-node"
+		}
+	},
+	":contextual-delete-question": {
+		"label": "t__Remove question",
+		"icon": "times",
+		"steps": {
+			"type": "operation/delete-node"
+		}
+	},
 	":contextual-insert-lcAnswerOption2--above": {
 		"label": "t__Add answer option above",
 		"description": "t__Provides the content and feedback for a question option, and can indicate the correct option.",
@@ -29,6 +44,50 @@
 					]
 				]
 			}
+		}
+	},
+	":contextual-move-down": {
+		"label": "t__Move down",
+		"description": "t__Switch this question with the question below",
+		"icon": "arrow-down",
+		"keyBinding": "alt+shift+down",
+		"osxKeyBinding": "ctrl+shift+down",
+		"keyBindingDisabled": true,
+		"steps": {
+			"type": "operation/swap-with-next-element"
+		}
+	},
+	":contextual-move-up": {
+		"label": "t__Move up",
+		"description": "t__Switch this question with the question above",
+		"icon": "arrow-up",
+		"keyBinding": "alt+shift+up",
+		"osxKeyBinding": "ctrl+shift+up",
+		"keyBindingDisabled": true,
+		"steps": {
+			"type": "operation/swap-with-previous-element"
+		}
+	},
+	":contextual-move-down-answer-option": {
+		"label": "t__Move down",
+		"description": "t__Switch this answer option with the answer option below",
+		"icon": "arrow-down",
+		"keyBinding": "alt+shift+down",
+		"osxKeyBinding": "ctrl+shift+down",
+		"keyBindingDisabled": true,
+		"steps": {
+			"type": "operation/swap-with-next-element"
+		}
+	},
+	":contextual-move-up-answer-option": {
+		"label": "t__Move up",
+		"description": "t__Switch this answer option with the answer option above",
+		"icon": "arrow-up",
+		"keyBinding": "alt+shift+up",
+		"osxKeyBinding": "ctrl+shift+up",
+		"keyBindingDisabled": true,
+		"steps": {
+			"type": "operation/swap-with-previous-element"
 		}
 	},
 	":insert-image--in-lcAsset2": {
@@ -237,13 +296,6 @@
 			}
 		}
 	},
-	":contextual-delete-question": {
-		"label": "t__Remove question",
-		"icon": "times",
-		"steps": {
-			"type": "operation/delete-node"
-		}
-	},
 	":_wrap-in-{question}":{
 		"steps": [
 			{
@@ -335,12 +387,5 @@
 				}
 			}
 		]
-	},
-	":contextual-delete-lcArea2": {
-		"label": "t__Remove area",
-		"icon": "times",
-		"steps": {
-			"type": "operation/delete-node"
-		}
 	}
 }

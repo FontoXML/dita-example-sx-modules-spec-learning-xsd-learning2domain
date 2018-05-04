@@ -120,49 +120,6 @@
 			}
 		]
 	},
-	":lcHotspot2-add-lcArea2": {
-		"label": "Add area",
-		"getStateSteps": [
-			{
-				"type": "transform/setContextNodeIdToFirstMatchingNodeFromContextNode",
-				"data": {
-					"xPathQuery": "./lcHotspotMap2"
-				}
-			},
-			{
-				"type": "operation/append-structure",
-				"data": {
-					"childNodeStructure": [
-						"lcArea2",
-						["lcAreaShape2", "TEST"],
-						["lcAreaCoords2", "TEST"]
-					]
-				}
-			}
-		],
-		"steps": [
-			{
-				"type": "transform/setContextNodeIdToFirstMatchingNodeFromContextNode",
-				"data": {
-					"xPathQuery": "./lcHotspotMap2"
-				}
-			},
-			{
-				"type": "operation/:_open-shape-editor-modal-for-insert--lcHotspot2"
-			},
-			{
-				"type": "operation/append-structure",
-				"data": {
-					"childNodeStructure": [
-						"lcArea2",
-						["lcAreaShape2", "{{areaShape}}"],
-						["lcAreaCoords2", "{{areaCoords}}"],
-						["lcFeedback2", [{ "bindTo": "selection", "empty": true }]]
-					]
-				}
-			}
-		]
-	},
 	":lcArea2-insert-lcFeedback2": {
 		"label": "t__Add feedback",
 		"description": "t__Provides feedback for the area",

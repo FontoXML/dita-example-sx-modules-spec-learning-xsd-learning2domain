@@ -3,7 +3,6 @@ define([
 	'fontoxml-families/configureAsFrame',
 	'fontoxml-families/configureAsRemoved',
 	'fontoxml-families/configureAsStructure',
-	'fontoxml-families/configureContextualOperations',
 	'fontoxml-families/configureProperties',
 	'fontoxml-families/createElementMenuButtonWidget',
 	'fontoxml-families/createIconWidget',
@@ -15,7 +14,6 @@ define([
 	configureAsFrame,
 	configureAsRemoved,
 	configureAsStructure,
-	configureContextualOperations,
 	configureProperties,
 	createElementMenuButtonWidget,
 	createIconWidget,
@@ -62,11 +60,18 @@ define([
 			backgroundColor: 'red'
 		});
 
-		configureContextualOperations(sxModule, 'self::lcAnswerOption2[parent::*/parent::*[self::lcSingleSelect2]]', [
-			{ name: ':contextual-insert-lcAnswerOption2--above' },
-			{ name: ':contextual-insert-lcAnswerOption2--below' }
-		], 2);
-
+		configureProperties(sxModule, 'self::lcAnswerOption2[parent::*/parent::*[self::lcSingleSelect2]]', {
+			priority: 2,
+			contextualOperations: [
+				{ name: ':contextual-move-up-answer-option' },
+				{ name: ':contextual-move-down-answer-option' },
+				{ name: ':contextual-insert-lcAnswerOption2--above' },
+				{ name: ':contextual-insert-lcAnswerOption2--below' }
+			],
+			blockOutsideAfter: [
+				createElementMenuButtonWidget()
+			]
+		});
 
 		configureProperties(sxModule, 'self::lcAnswerOption2[parent::*/parent::*[self::lcSingleSelect2 or self::lcTrueFalse2] and child::lcCorrectResponse2]', {
 			markupLabel: t('correct answer option'),
@@ -80,6 +85,8 @@ define([
 
 		configureProperties(sxModule, 'self::lcAnswerOption2[parent::*/parent::lcMultipleSelect2]', {
 			contextualOperations: [
+				{ name: ':contextual-move-up-answer-option' },
+				{ name: ':contextual-move-down-answer-option' },
 				{ name: ':contextual-insert-lcAnswerOption2--above' },
 				{ name: ':contextual-insert-lcAnswerOption2--below' }
 			],
@@ -88,6 +95,9 @@ define([
 				createIconWidget('square-o', {
 					clickOperation: ':lcAnswerOption2-insert-lcCorrectResponse2'
 				})
+			],
+			blockOutsideAfter: [
+				createElementMenuButtonWidget()
 			],
 			backgroundColor: 'red'
 		});
@@ -210,7 +220,8 @@ define([
 		//     In a lcHotspot2 interaction, the learner clicks on a region of the screen to indicate a choice.
 		configureAsFrame(sxModule, 'self::lcHotspot2', t('hot spot'), {
 			contextualOperations: [
-				{ name: ':lcHotspot2-add-lcArea2' },
+				{ name: ':contextual-move-up' },
+				{ name: ':contextual-move-down' },
 				{ name: ':contextual-delete-question' }
 			],
 			titleQuery: './lcInteractionLabel2',
@@ -252,6 +263,8 @@ define([
 		//     choice.
 		configureAsFrame(sxModule, 'self::lcMatching2', t('matching question'), {
 			contextualOperations: [
+				{ name: ':contextual-move-up' },
+				{ name: ':contextual-move-down' },
 				{ name: ':contextual-delete-question' }
 			],
 			titleQuery: './lcInteractionLabel2',
@@ -322,6 +335,8 @@ define([
 		//     list of choices.
 		configureAsFrame(sxModule, 'self::lcMultipleSelect2', t('multiple choice'), {
 			contextualOperations: [
+				{ name: ':contextual-move-up' },
+				{ name: ':contextual-move-down' },
 				{ name: ':contextual-delete-question' }
 			],
 			titleQuery: './lcInteractionLabel2',
@@ -378,8 +393,8 @@ define([
 		//     sequence interaction.
 		configureAsFrame(sxModule, 'self::lcSequenceOption2', t('answer option'), {
 			contextualOperations: [
-				{ name: ':contextual-move-up-lcSequenceOption2' },
-				{ name: ':contextual-move-down-lcSequenceOption2' },
+				{ name: ':contextual-move-up-answer-option' },
+				{ name: ':contextual-move-down-answer-option' },
 				{ name: ':contextual-insert-lcSequenceOption2--above' },
 				{ name: ':contextual-insert-lcSequenceOption2--below' }
 			],
@@ -431,6 +446,8 @@ define([
 		//     such as small to large.
 		configureAsFrame(sxModule, 'self::lcSequencing2', t('sequencing question'), {
 			contextualOperations: [
+				{ name: ':contextual-move-up' },
+				{ name: ':contextual-move-down' },
 				{ name: ':contextual-delete-question' }
 			],
 			titleQuery: './lcInteractionLabel2',
@@ -446,6 +463,8 @@ define([
 		//     An lcSingleSelect2 interaction presents three or more choices, only one of which is correct.
 		configureAsFrame(sxModule, 'self::lcSingleSelect2', t('single choice'), {
 			contextualOperations: [
+				{ name: ':contextual-move-up' },
+				{ name: ':contextual-move-down' },
 				{ name: ':contextual-delete-question' }
 			],
 			titleQuery: './lcInteractionLabel2',
@@ -462,6 +481,8 @@ define([
 		//     often presented as true/false or yes/no responses.
 		configureAsFrame(sxModule, 'self::lcTrueFalse2', t('true/false choice'), {
 			contextualOperations: [
+				{ name: ':contextual-move-up' },
+				{ name: ':contextual-move-down' },
 				{ name: ':contextual-delete-question' }
 			],
 			titleQuery: './lcInteractionLabel2',
