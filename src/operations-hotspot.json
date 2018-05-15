@@ -108,6 +108,30 @@
 	},
 	":insert-lcArea2": {
 		"label": "Area",
+		"getStateSteps": [
+			{
+				"type": "transform/setContextNodeIdToSelectionAncestor",
+				"data": {
+					"selectionAncestorNodeSpec": "self::lcHotspot2"
+				}
+			},
+			{
+				"type": "transform/setContextNodeIdToFirstMatchingNodeFromContextNode",
+				"data": {
+					"xPathQuery": "./lcHotspotMap2"
+				}
+			},
+			{
+				"type": "operation/append-structure",
+				"data": {
+					"childNodeStructure": [
+						"lcArea2",
+						["lcAreaShape2", "TEST"],
+						["lcAreaCoords2", "TEST"]
+					]
+				}
+			}
+		],
 		"steps": [
 			{
 				"type": "transform/setContextNodeIdToSelectionAncestor",
@@ -116,7 +140,24 @@
 				}
 			},
 			{
-				"type": "operation/:lcHotspot2-add-lcArea2"
+				"type": "transform/setContextNodeIdToFirstMatchingNodeFromContextNode",
+				"data": {
+					"xPathQuery": "./lcHotspotMap2"
+				}
+			},
+			{
+				"type": "operation/:_open-shape-editor-modal-for-insert--lcHotspot2"
+			},
+			{
+				"type": "operation/append-structure",
+				"data": {
+					"childNodeStructure": [
+						"lcArea2",
+						["lcAreaShape2", "{{areaShape}}"],
+						["lcAreaCoords2", "{{areaCoords}}"],
+						["lcFeedback2", [{ "bindTo": "selection", "empty": true }]]
+					]
+				}
 			}
 		]
 	},
