@@ -110,20 +110,9 @@
 		"label": "Area",
 		"getStateSteps": [
 			{
-				"type": "transform/setContextNodeIdToSelectionAncestor",
-				"data": {
-					"selectionAncestorNodeSpec": "self::lcHotspot2"
-				}
-			},
-			{
-				"type": "transform/setContextNodeIdToFirstMatchingNodeFromContextNode",
-				"data": {
-					"xPathQuery": "./lcHotspotMap2"
-				}
-			},
-			{
 				"type": "operation/append-structure",
 				"data": {
+					"contextNodeId": "fonto:selection-common-ancestor()/ancestor-or-self::lcHotspot2/lcHotspotMap2[1]",
 					"childNodeStructure": [
 						"lcArea2",
 						["lcAreaShape2", "TEST"],
@@ -134,19 +123,10 @@
 		],
 		"steps": [
 			{
-				"type": "transform/setContextNodeIdToSelectionAncestor",
+				"type": "operation/:_open-shape-editor-modal-for-insert--lcHotspot2",
 				"data": {
-					"selectionAncestorNodeSpec": "self::lcHotspot2"
+					"contextNodeId": "fonto:selection-common-ancestor()/ancestor-or-self::lcHotspot2/lcHotspotMap2[1]"
 				}
-			},
-			{
-				"type": "transform/setContextNodeIdToFirstMatchingNodeFromContextNode",
-				"data": {
-					"xPathQuery": "./lcHotspotMap2"
-				}
-			},
-			{
-				"type": "operation/:_open-shape-editor-modal-for-insert--lcHotspot2"
 			},
 			{
 				"type": "operation/append-structure",
